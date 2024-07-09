@@ -25,7 +25,7 @@ def load_data():
     return df
 
 # adding layout and widget
-st.title("immigration analysis")
+st.title("immigration analysis") 
 with st.spinner("loading data...."):
     df = load_data()
     st.success("data loaded successfully")
