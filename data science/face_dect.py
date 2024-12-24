@@ -1,10 +1,21 @@
 import cv2
 import mediapipe as mp
+
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
+
+# Open the default camera (index 0)
 cap = cv2.VideoCapture(0)
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+
 with mp_face_detection.FaceDetection(
     model_selection=0, min_detection_confidence=0.5) as face_detection:
+    if face_detection is None:
+        print("Failed to create face detection object")
+        exit()
+
     while cap.isOpened():
         success, image = cap.read()
         if not success:
@@ -28,4 +39,5 @@ with mp_face_detection.FaceDetection(
         cv2.imshow('MediaPipe Face Detection', cv2.flip(image, 1))
         if cv2.waitKey(5) & 0xFF == 27:
             break
-cap.release() 
+
+cap.release()
